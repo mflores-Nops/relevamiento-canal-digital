@@ -150,7 +150,7 @@ textarea::placeholder,input::placeholder{color:var(--g400)}
 
 <div class="progress-wrap" id="progressWrap" style="display:none">
   <div class="progress-bar"><div class="progress-fill" id="pFill"></div></div>
-  <div class="progress-label" id="pLabel">Seccion 1 de 8</div>
+  <div class="progress-label" id="pLabel">Seccion 1 de 7</div>
 </div>
 
 <div class="container" id="app"></div>
@@ -167,7 +167,6 @@ textarea::placeholder,input::placeholder{color:var(--g400)}
 // ════════════════════════════════════════════
 const DEST_EMAIL = 'mflores@neuronops.com.ar'
 const CC_EMAIL = 'mleupold@neuronops.com.ar'
-const WA_NUMBER = '' // Numero de WhatsApp de NeuronOps (opcional, ej: '5491112345678')
 const PROJECT_NAME = 'Administracion de canal digital de la gerencia'
 
 // ════════════════════════════════════════════
@@ -192,8 +191,6 @@ const STEPS = [
         comment:true, commentPlaceholder:'Ej: los separamos por especialidad y por zona...' },
       { k:'base_frecuencia', label:'Con que frecuencia se suman medicos nuevos?', type:'radio',
         opts:['Varias veces por semana','Algunas por mes','Esporadicamente'] },
-      { k:'base_notas', label:'Alguna aclaracion sobre la base de medicos?', type:'text',
-        placeholder:'Si hay algo que no preguntamos o que quieran aclarar sobre como manejan la informacion hoy...' },
     ]
   },
 
@@ -211,35 +208,21 @@ const STEPS = [
     desc:'Solo les preguntamos sobre lo que eligieron en el paso anterior. Si algo no aplica, salteenlo.',
     dynamic: true },
 
-  { id:'formato', emoji:'📎', color:'#5B4B8A', title:'Formato de los mensajes',
-    desc:'Como son las piezas que envian hoy a los medicos.',
+  { id:'formato', emoji:'📎', color:'#5B4B8A', title:'Formato y envios',
+    desc:'Como son las piezas que envian y como llegan a los medicos.',
     questions:[
-      { k:'fmt_tipos', label:'Que formatos usan hoy para comunicarse?', req:true, type:'check',
+      { k:'fmt_tipos', label:'Que formatos usan hoy?', req:true, type:'check',
         opts:['Texto plano por WhatsApp','Imagenes o flyers','Archivos PDF','Links (formularios, paginas)','Videos'] },
-      { k:'fmt_pdf', label:'Los PDFs que arman son personalizados o genericos?', req:true, type:'radio',
+      { k:'fmt_pdf', label:'Los PDFs son personalizados o genericos?', req:true, type:'radio',
         showIf: () => gv('fmt_tipos','check').includes('Archivos PDF'),
         opts:['Personalizados (ej: liquidacion con datos del medico)','Genericos (ej: programa de un congreso)','Ambos segun el caso'] },
       { k:'fmt_auto_pdf', label:'Necesitarian que la herramienta genere PDFs automaticamente?', type:'radio',
         showIf: () => gv('fmt_tipos','check').includes('Archivos PDF'),
         hint:'Ej: a partir de los datos de comisiones, generar el PDF de cada medico',
         opts:['Si, seria ideal','No, preferimos subir los PDFs armados','Ambas opciones'] },
-      { k:'fmt_forms', label:'Usan formularios? De que tipo?', type:'check',
-        opts:['Google Forms','Typeform','Formulario propio / de su web','No usamos formularios'] },
-      { k:'fmt_notas', label:'Alguna aclaracion sobre los formatos?', type:'text',
-        placeholder:'Ej: los flyers los arma marketing, los PDFs los genera el sistema contable...' },
-    ]
-  },
-
-  { id:'masivo', emoji:'📡', color:'#2EC4C7', title:'Masivo vs. individual',
-    desc:'Que se envia a muchos medicos y que se envia de a uno.',
-    questions:[
-      { k:'masivo_personaliza', label:'En los envios masivos el contenido es igual para todos?', req:true, type:'radio',
-        opts:['Igual para todos','Se personaliza (ej: Hola Dr. {nombre})','Depende del tipo de envio'] },
-      { k:'masivo_archivo_dif', label:'Hay casos donde cada medico recibe un archivo diferente?', type:'radio',
-        hint:'Ej: cada uno recibe su PDF de liquidacion con sus datos',
-        opts:['Si','No, siempre el mismo','A veces, depende del caso'] },
-      { k:'masivo_notas', label:'Alguna aclaracion sobre envios masivos?', type:'text',
-        placeholder:'Ej: hoy armamos listas a mano en Excel y enviamos uno por uno...' },
+      { k:'masivo_personaliza', label:'En los envios masivos, se personaliza el contenido?', req:true, type:'radio',
+        hint:'Ej: "Hola Dr. Lopez" vs el mismo texto para todos',
+        opts:['Igual para todos','Se personaliza por medico','Depende del tipo de envio'] },
     ]
   },
 
@@ -256,8 +239,6 @@ const STEPS = [
         hint:'Ej: consultar comisiones cada dia, sincronizar base de medicos',
         opts:['Si','No','Hay que evaluarlo'],
         comment:true, commentPlaceholder:'Que informacion y de que sistema...' },
-      { k:'origen_notas', label:'Alguna aclaracion sobre los sistemas o el origen de datos?', type:'text',
-        placeholder:'Ej: usamos SAP, el area de sistemas puede darnos acceso a una API...' },
     ]
   },
 
@@ -281,8 +262,6 @@ const STEPS = [
       { k:'coex_liberar', label:'Necesitan poder seguir usando el celular en paralelo a la automatizacion?', req:true, type:'radio',
         hint:'Ej: que la herramienta envie masivos pero que las 3 personas puedan seguir escribiendo manualmente desde el telefono',
         opts:['Si, es indispensable','Seria ideal pero podemos adaptarnos','No, todo puede pasar por la herramienta'] },
-      { k:'coex_notas', label:'Alguna aclaracion sobre el uso de la linea?', type:'text',
-        placeholder:'Ej: tambien hacemos llamadas desde ese numero, necesitamos que la linea quede libre para eso...' },
     ]
   },
 
@@ -291,7 +270,7 @@ const STEPS = [
     questions:[
       { k:'vol_mensajes', label:'Cuantos mensajes envian por semana aproximadamente?', type:'radio',
         opts:['Menos de 50','50 a 200','200 a 500','Mas de 500'] },
-      { k:'vol_personas', label:'Cuantas personas del equipo necesitarian acceso?', type:'radio',
+      { k:'vol_personas', label:'Cuantas personas necesitarian acceso a la nueva herramienta?', type:'radio',
         opts:['1 a 2','3 a 5','Mas de 5'] },
       { k:'prio_urgente', label:'Que es lo mas urgente de resolver?', req:true, type:'check',
         hint:'Marquen las que apliquen',
@@ -312,10 +291,8 @@ const STEPS = [
         hint:'Esto nos ayuda a disenar los niveles de seguridad y permisos',
         opts:['Si, datos financieros y personales','Solo datos de contacto','No estamos seguros'],
         comment:true, commentPlaceholder:'Ej: las liquidaciones tienen CBU y montos, eso es confidencial...' },
-      { k:'prio_casos_extra', label:'Hay algun caso de uso que no hayamos mencionado?', type:'text',
-        placeholder:'Si hay algo que necesiten y no aparecio en ninguna seccion, contenos aca. No se queden con nada.' },
-      { k:'prio_otro', label:'Algo mas que quieran agregar?', type:'text',
-        placeholder:'Cualquier idea, restriccion o detalle que nos ayude a disenar la mejor solucion...' },
+      { k:'prio_casos_extra', label:'Algo que no hayamos preguntado?', type:'text',
+        placeholder:'Cualquier caso de uso, restriccion, idea o detalle que nos ayude a disenar la mejor solucion. No se queden con nada.' },
     ]
   },
 
@@ -414,7 +391,7 @@ function rIntro(){
     <p>Las preguntas se <strong>adaptan segun lo que vayan respondiendo</strong> — si algo no aplica, simplemente lo saltean.</p>
     <div class="intro-features">
       <span class="intro-feat">~10 minutos</span>
-      <span class="intro-feat">8 secciones cortas</span>
+      <span class="intro-feat">7 secciones cortas</span>
       <span class="intro-feat">Preguntas adaptativas</span>
     </div>
     <p style="font-size:12px;color:var(--g400);margin-top:16px">Al finalizar se envia automaticamente un resumen con sus respuestas.</p>
@@ -434,10 +411,6 @@ function rFinish(){
     <p style="font-size:13px;color:var(--g400);margin-bottom:20px">Presionen <strong>Enviar respuestas</strong> para que nos llegue el resumen por email. Tambien pueden copiarlo.</p>
     <button class="btn btn-teal" onclick="sendForm()" id="btnSend" style="padding:14px 44px;font-size:15px;margin-bottom:10px">Enviar respuestas</button>
     <div id="sendStatus" style="margin:10px 0;font-size:13px;color:var(--g500)"></div>
-    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-      <button class="btn btn-ghost" onclick="copySummary()" style="font-size:13px">Copiar al portapapeles</button>
-      <button class="btn btn-ghost" onclick="shareWhatsApp()" style="font-size:13px">Enviar por WhatsApp</button>
-    </div>
     <div class="summary" id="sBox">${esc(summary)}</div>
     <div class="nav" style="justify-content:center;margin-top:8px">
       <button class="btn btn-ghost" onclick="goBack()" style="font-size:13px">Volver a revisar</button>
@@ -612,17 +585,6 @@ function sendForm(){
   })
 }
 
-function shareWhatsApp(){
-  const summary=buildSummary()
-  const text=encodeURIComponent(summary)
-  // Si hay numero configurado, abre directo; si no, abre selector
-  const url=WA_NUMBER ? 'https://wa.me/'+WA_NUMBER+'?text='+text : 'https://wa.me/?text='+text
-  window.open(url,'_blank')
-}
-
-function copySummary(){
-  navigator.clipboard.writeText(buildSummary()).then(()=>toast('Copiado al portapapeles'))
-}
 
 function toast(msg){
   const t=document.getElementById('toast')
