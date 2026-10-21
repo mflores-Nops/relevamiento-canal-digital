@@ -34,7 +34,7 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans
 /* ── Progress ── */
 .progress-wrap{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--g200);padding:14px 20px;display:flex;align-items:center;gap:14px}
 .progress-bar{flex:1;height:5px;background:var(--g200);border-radius:99px;overflow:hidden}
-.progress-fill{height:100%;background:línear-gradient(90deg,var(--teal),var(--teal-dark));border-radius:99px;transition:width .5s cubic-bezier(.4,0,.2,1);width:0%}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--teal-dark));border-radius:99px;transition:width .5s cubic-bezier(.4,0,.2,1);width:0%}
 .progress-label{font-size:11px;font-weight:700;color:var(--navy);min-width:85px;text-align:right;letter-spacing:.3px}
 
 /* ── Container & Steps ── */
@@ -91,10 +91,10 @@ textarea::placeholder,input::placeholder{color:var(--g400)}
 .btn{border:none;border-radius:11px;padding:13px 32px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .18s;letter-spacing:.2px}
 .btn:hover{transform:translateY(-1px);box-shadow:var(--shadow-md)}
 .btn:active{transform:translateY(0)}
-.btn-teal{background:línear-gradient(135deg,var(--teal),var(--teal-dark));color:var(--white)}
+.btn-teal{background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:var(--white)}
 .btn-ghost{background:transparent;color:var(--g500);border:1.5px solid var(--g300);padding:12px 26px}
 .btn-ghost:hover{border-color:var(--g400);color:var(--g700);box-shadow:none}
-.btn-navy{background:línear-gradient(135deg,var(--navy),var(--navy-light));color:var(--white)}
+.btn-navy{background:linear-gradient(135deg,var(--navy),var(--navy-light));color:var(--white)}
 .btn:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
 
 /* ── Intro ── */
@@ -184,7 +184,7 @@ const STEPS = [
         opts:['Excel / Google Sheets','ERP / sistema interno','Agenda del celular','CRM o herramienta comercial','Otro'],
         comment:true },
       { k:'base_datos', label:'Qué datos tienen cargados de cada médico?', req:true, type:'check', hint:'Marquen todo lo que tengan',
-        opts:['Nombre completo','Teléfono','Email','Especialidad','Zona / ciudad','Categoría o nivel','Facturación / comisiónes','Fecha de alta'],
+        opts:['Nombre completo','Teléfono','Email','Especialidad','Zona / ciudad','Categoría o nivel','Facturación / comisiones','Fecha de alta'],
         comment:true, commentPlaceholder:'Otros datos que manejen...' },
       { k:'base_carga_nuevos', label:'Cómo se imaginan la carga de nuevos contactos?', type:'text',
         placeholder:'Ej: importar desde Excel, que se den de alta solos con un link, carga manual, automático desde el sistema...' },
@@ -201,7 +201,7 @@ const STEPS = [
     questions:[
       { k:'tipos_cuales', label:'Qué tipos de comunicación manejan hoy?', req:true, type:'check',
         hint:'Marquen todas las que apliquen. Si hay alguna que no mencionamos, elijan "Otro" y descríbannos abajo.',
-        opts:['Alta y bienvenida de nuevos médicos','Invitaciones a eventos o congresos','Novedades y campañas','Aviso de comisiónes liquidadas','Seguimiento individual (1 a 1)','Otro'],
+        opts:['Alta y bienvenida de nuevos médicos','Invitaciones a eventos o congresos','Novedades y campañas','Aviso de comisiones liquidadas','Seguimiento individual (1 a 1)','Otro'],
         comment:true, commentPlaceholder:'Describan otros tipos de comunicación que no esten en la lista...' },
     ]
   },
@@ -220,7 +220,7 @@ const STEPS = [
         opts:['Personalizados (ej: liquidación con datos del médico)','Genéricos (ej: programa de un congreso)','Ambos según el caso'] },
       { k:'fmt_auto_pdf', label:'Necesitarían que la herramienta genere PDFs automáticamente?', type:'radio',
         showIf: () => gv('fmt_tipos','check').includes('Archivos PDF'),
-        hint:'Ej: a partir de los datos de comisiónes, generar el PDF de cada médico',
+        hint:'Ej: a partir de los datos de comisiones, generar el PDF de cada médico',
         opts:['Si, sería ideal','No, preferimos subir los PDFs armados','Ambas opciones'] },
       { k:'masivo_personaliza', label:'En los envíos masivos, se personaliza el contenido?', req:true, type:'radio',
         hint:'Ej: "Hola Dr. López" vs el mismo texto para todos',
@@ -238,7 +238,7 @@ const STEPS = [
         opts:['Todo desde NeuronOps (cargar base, armar campaña, enviar)','Automático: su sistema nos avisa y NeuronOps envia','Mixto: algunas automáticas, otras manuales'],
         comment:true, commentPlaceholder:'Ej: las comisiones podrían ser automáticas pero los eventos los armamos a mano...' },
       { k:'origen_sync', label:'Necesitan importar información periódicamente de algún sistema?', type:'radio',
-        hint:'Ej: consultar comisiónes cada día, sincronizar base de médicos',
+        hint:'Ej: consultar comisiones cada día, sincronizar base de médicos',
         opts:['Si','No','Hay que evaluarlo'],
         comment:true, commentPlaceholder:'Qué información y de que sistema...' },
     ]
@@ -276,7 +276,7 @@ const STEPS = [
         opts:['1 a 2','3 a 5','Más de 5'] },
       { k:'prio_urgente', label:'Qué es lo más urgente de resolver?', req:true, type:'check',
         hint:'Marquen las que apliquen',
-        opts:['Envíos masivos (campañas, novedades)','Avisos automáticos (comisiónes, altas)','Centralizar la base de médicos','Dejar de armar PDFs a mano','Tener historial de lo enviado a cada médico'],
+        opts:['Envíos masivos (campañas, novedades)','Avisos automáticos (comisiones, altas)','Centralizar la base de médicos','Dejar de armar PDFs a mano','Tener historial de lo enviado a cada médico'],
         comment:true, commentPlaceholder:'Lo que más tiempo nos consume hoy es...' },
       { k:'prio_dolor', label:'Qué problema les genera más pérdida de tiempo hoy?', type:'text',
         placeholder:'Ej: armar las bases de envío nos lleva medio día, los PDFs son uno por uno, no sabemos si el médico recibió el mensaje...' },
@@ -289,10 +289,10 @@ const STEPS = [
         opts:['Si, es importante','Seria un plus','No hace falta por ahora'] },
       { k:'prio_timeline', label:'Para cuándo necesitan tener esto funcionando?', req:true, type:'radio',
         opts:['Lo antes posible','En 1 mes','En 2 a 3 meses','Sin apuro, pero queremos arrancar'] },
-      { k:'prio_datos_sensibles', label:'Manejan datos sensibles de los médicos (CUIT, CBU, montos de comisiónes)?', type:'radio',
+      { k:'prio_datos_sensibles', label:'Manejan datos sensibles de los médicos (CUIT, CBU, montos de comisiones)?', type:'radio',
         hint:'Esto nos ayuda a diseñar los niveles de seguridad y permisos',
         opts:['Si, datos financieros y personales','Solo datos de contacto','No estamos seguros'],
-        comment:true, commentPlaceholder:'Ej: las liquidaciónes tienen CBU y montos, eso es confidencial...' },
+        comment:true, commentPlaceholder:'Ej: las liquidaciones tienen CBU y montos, eso es confidencial...' },
       { k:'prio_casos_extra', label:'Algo que no hayamos preguntado?', type:'text',
         placeholder:'Cualquier caso de uso, restricción, idea o detalle que nos ayude a diseñar la mejor solución. No se queden con nada.' },
     ]
@@ -334,9 +334,9 @@ const DET = {
         opts:['A todos','Segmentado por grupo','Depende de la novedad'] },
     ]
   },
-  'Aviso de comisiónes liquidadas': {
+  'Aviso de comisiones liquidadas': {
     label:'Comisiones liquidadas', questions:[
-      { k:'det_com_source', label:'De dónde sale la información de comisiónes?', type:'radio',
+      { k:'det_com_source', label:'De dónde sale la información de comisiones?', type:'radio',
         opts:['Del ERP / sistema contable','De una planilla Excel','Otro'], comment:true },
       { k:'det_com_personal', label:'Cada médico recibe info personalizada?', type:'radio',
         opts:['Si, cada uno su detalle','No, es un comunicado general'] },
