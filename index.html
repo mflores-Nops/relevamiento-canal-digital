@@ -186,6 +186,8 @@ const STEPS = [
       { k:'base_datos', label:'Que datos tienen cargados de cada medico?', req:true, type:'check', hint:'Marquen todo lo que tengan',
         opts:['Nombre completo','Telefono','Email','Especialidad','Zona / ciudad','Categoria o nivel','Facturacion / comisiones','Fecha de alta'],
         comment:true, commentPlaceholder:'Otros datos que manejen...' },
+      { k:'base_carga_nuevos', label:'Como se imaginan la carga de nuevos contactos?', type:'text',
+        placeholder:'Ej: importar desde Excel, que se den de alta solos con un link, carga manual, automatico desde el sistema...' },
       { k:'base_segmenta', label:'Segmentan a los medicos en grupos?', req:true, type:'radio',
         opts:['Si, por categorias o grupos','No, los tratamos a todos igual'],
         comment:true, commentPlaceholder:'Ej: los separamos por especialidad y por zona...' },
